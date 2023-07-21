@@ -4,17 +4,17 @@ contract FunctionError
     {
 
         address  payable public owner ;
+        uint public i ; 
         constructor () {
         owner = payable(msg.sender);
         }
-        uint public i ;  
-        function _Require(uint _i ) public  {
+    
+        function _Require(uint _i) public  {
                 require(msg.sender == owner,"not the owner of the contract from require"); 
                         i = _i ;
         } 
         function _revert() public  view {
             if(msg.sender != owner ) { 
-
                 revert ("not the owner of the contract from the revert");
             }
         }
@@ -28,9 +28,9 @@ contract FunctionError
               }
         }
     
-        function _assert() public payable  {
-   
+        function _assert(uint _i) public payable   {
             assert(payable(msg.sender) == owner);
+              i = _i *2 ;
 
         }
 
