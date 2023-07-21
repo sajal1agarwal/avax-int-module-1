@@ -1,23 +1,37 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.17;
+contract FunctionError 
+    {
 
-contract FunctionErrors {
-    uint private value;
+        address  payable public owner ;
+        constructor () {
+        owner = payable(msg.sender);
+        }
+        uint public i ;  
+        function _Require(uint _i ) public  {
+                require(msg.sender == owner,"not the owner of the contract from require"); 
+                        i = _i ;
+        } 
+        function _revert() public  view {
+            if(msg.sender != owner ) { 
 
-    function setValue(uint _newValue) public {
-        require(_newValue > 0, "New value must be greater than zero");
-        value = _newValue;
+                revert ("not the owner of the contract from the revert");
+            }
+        }
+
+
+        error NotOwner(address payable _address, string  str); 
+        function _revertCustom() public view {
+              if(payable(msg.sender) != owner) 
+              {
+                revert NotOwner({_address: payable(msg.sender), str : "not the owner address"});
+              }
+        }
+    
+        function _assert() public payable  {
+   
+            assert(payable(msg.sender) == owner);
+
+        }
+
     }
-    function divide(uint _divisor) public pure returns (uint) {
-        assert(_divisor != 0);
-        return 10 / _divisor;
-    }
-    function checkEven(uint _number) public pure {
-        if(_number %2 != 0) 
-        revert("Number must be even");
-        
-    }  
-    function getValue() public view returns (uint) {
-        return value;
-    }
-}
