@@ -1,37 +1,28 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
-contract FunctionError 
-    {
+pragma solidity ^0.8.0;
 
-        address  payable public owner ;
-        uint public i ; 
-        constructor () {
-        owner = payable(msg.sender);
-        }
-    
-        function _Require(uint _i) public  {
-                require(msg.sender == owner,"not the owner of the contract from require"); 
-                        i = _i ;
-        } 
-        function _revert() public  view {
-            if(msg.sender != owner ) { 
-                revert ("not the owner of the contract from the revert");
-            }
-        }
+contract FunctionErrorhandling {
+    uint256 public balance;
 
+    function deposit(uint256 amount) external {
+        require(amount > 0, "Amount must be greater than 0"); // Require statement
 
-        error NotOwner(address payable _address, string  str); 
-        function _revertCustom() public view {
-              if(payable(msg.sender) != owner) 
-              {
-                revert NotOwner({_address: payable(msg.sender), str : "not the owner address"});
-              }
-        }
-    
-        function _assert(uint _i) public payable   {
-            assert(payable(msg.sender) == owner);
-              i = _i *2 ;
-
-        }
-
+        uint256 previousBalance = balance;
+        balance += amount;
+        
+        assert(balance >= previousBalance); // Assert statement
     }
+
+    function withdraw(uint256 amount) external {
+        require(amount <= balance, "Insufficient balance"); // Require statement
+
+        uint256 previousBalance = balance;
+        balance -= amount;
+
+        assert(balance <= previousBalance); // Assert statement
+
+        if (amount == 0) {
+            revert("Amount must be greater than 0"); // Revert statement
+        }
+    }
+}
