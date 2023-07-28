@@ -1,38 +1,29 @@
-# avax-int-module-1
-# Smart Contract Error Handling
+# Solidity Contract Function ErrorHandling
 
-This repository contains a Solidity smart contract that demonstrates the usage of the `require()`, `assert()`, and `revert()` statements for error handling in Ethereum smart contracts.
+This Solidity contract example demonstrates the usage of `require()`, `assert()`, and `revert()` statements in a smart contract. The purpose of this contract is to showcase how these statements can be used for validation and error handling within a contract.
 
-## Contract Overview
+## Description
 
-The `ExampleContract` showcases three different error handling mechanisms:
+This contract, named `ContractExample`, maintains a `balance` variable that represents an account balance. It provides two external functions: `deposit()` and `withdraw()`. The `deposit()` function allows users to add funds to the `balance`, while the `withdraw()` function allows users to withdraw funds from the `balance`. 
 
-1. `require()`: The `require()` statement is used for validating conditions and inputs. It checks if a condition is met and, if not, reverts the transaction and returns an error message. This helps ensure that the contract's requirements are satisfied before executing any further code.
+The `require()` statement is used to validate that the input parameters meet certain conditions. It ensures that the `amount` provided in the `deposit()` and `withdraw()` functions is greater than zero and does not exceed the available `balance`. If these conditions are not met, an error message is returned.
 
-2. `assert()`: The `assert()` statement is used for internal consistency checks. It verifies a condition and, if it evaluates to `false`, it reverts the transaction. Unlike `require()`, `assert()` is typically used to catch bugs and is not meant for regular input validation.
+The `assert()` statement is used to check for internal errors or contract invariant violations. In this contract, it is used to verify that the `balance` is correctly updated after a deposit and withdrawal. If the `assert()` condition fails, it indicates a critical error in the contract execution.
 
-3. `revert()`: The `revert()` statement is similar to `require()`, but it allows for more complex error handling. It can be used to revert the transaction and provide a custom error message. Additionally, custom error types can be defined using the `error` keyword, allowing for more detailed error reporting.
+The `revert()` statement is used to revert the transaction and provide a revert message. In the `withdraw()` function, it is used to revert the transaction if the requested withdrawal amount is zero.
 
-## Usage
+## Getting Started
 
-1. Install dependencies: Ensure you have Node.js and npm installed on your machine.
+To execute and interact with this contract, you can use a Solidity development environment such as Remix. Follow the steps below to get started:
 
-2. Clone the repository: `git clone https://github.com/your-username/error-handling-contract.git`
-
-3. Navigate to the project directory: `cd error-handling-contract`
-
-4. Install dependencies: Run `npm install` to install the required dependencies.
-
-5. Compile the contract: Run `npm run compile` to compile the Solidity smart contract.
-
-6. Test the contract: Run `npm run test` to execute the provided tests and validate the functionality of the error handling mechanisms.
-
-## Contributing
-
-Contributions to this project are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request. Ensure that your code adheres to the established coding conventions and passes the existing tests.
+1. Go to the Remix website at https://remix.ethereum.org/.
+2. Create a new file by clicking on the "+" icon in the left-hand sidebar.
+3. Save the file with a .sol extension (e.g., ContractExample.sol).
+4. Copy and paste the provided Solidity code into the file.
+5. Compile the code by clicking on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.0" (or another compatible version), and then click on the "Compile ContractExample.sol" button.
+6. Once the code is compiled successfully, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Select the "ContractExample" contract from the dropdown menu, and then click on the "Deploy" button.
+7. After the contract is deployed, you can interact with it by calling the `deposit()` and `withdraw()` functions. Use appropriate parameters and click on the "transact" button to execute the functions.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-# video explained - https://www.loom.com/share/deeeaf4e0c5a4397a3191a0002f2bbc3?sid=29c87e13-92c6-413c-9e67-de03804580fe
+This project is licensed under the MIT License - see the LICENSE.md file for details.
